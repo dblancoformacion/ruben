@@ -28,7 +28,18 @@ COLLATE utf8_spanish_ci;
 CREATE TABLE IF NOT EXISTS terminales (
   id_terminal int AUTO_INCREMENT,
   nom_terminal varchar(25) NOT NULL,
-  PRIMARY KEY (id_terminal)
+  id_aeropuerto int,
+  PRIMARY KEY (id_terminal),
+  FOREIGN KEY (id_aeropuerto )REFERENCES aeropuerto (id_aeropuerto)
+)
+ENGINE = INNODB
+CHARACTER SET utf8
+COLLATE utf8_spanish_ci;
+
+CREATE TABLE IF NOT EXISTS servicios (
+  id_servicio int AUTO_INCREMENT,
+  nom_servicio varchar(25) NOT NULL,
+  PRIMARY KEY (id_servicio)
 )
 ENGINE = INNODB
 CHARACTER SET utf8
@@ -45,20 +56,17 @@ ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_spanish_ci;
 
-CREATE TABLE IF NOT EXISTS servicios (
-  id_servicio int AUTO_INCREMENT,
-  nom_servicio varchar(25) NOT NULL,
-  PRIMARY KEY (id_servicio)
-)
-ENGINE = INNODB
-CHARACTER SET utf8
-COLLATE utf8_spanish_ci;
+
 
 
 
 CREATE TABLE IF NOT EXISTS vuelo (
   id_vuelo int AUTO_INCREMENT,
-  PRIMARY KEY (id_vuelo)
+  id_terminal_salida int,
+  id_terminal_llegada int,
+  PRIMARY KEY (id_vuelo),
+  FOREIGN KEY(id_terminal_salida) REFERENCES terminales(id_terminal),
+  FOREIGN KEY(id_terminal_llegada) REFERENCES terminales(id_terminal)
 )
 ENGINE = INNODB
 CHARACTER SET utf8
@@ -68,7 +76,9 @@ CREATE TABLE IF NOT EXISTS aerolineas (
   id_linea int AUTO_INCREMENT,
   nom_linea varchar (25) NOT NULL,
   nacionalidad varchar (25)NOT NULL ,
-  PRIMARY KEY (id_linea)
+  id_vuelo int,
+  PRIMARY KEY (id_linea),
+  FOREIGN KEY(id_vuelo) REFERENCES vuelo(id_vuelo)
 )
 ENGINE = INNODB
 CHARACTER SET utf8
@@ -97,50 +107,7 @@ COLLATE utf8_spanish_ci;
 
 
 
-CREATE TABLE if NOT EXISTS sedivide(
-  id_aeropuerto int,
-  id_terminal int,
-  PRIMARY KEY (id_aeropuerto,id_terminal),
-  FOREIGN  KEY (id_aeropuerto) REFERENCES aeropuerto(id_aeropuerto),
-  FOREIGN  KEY (id_terminal) REFERENCES terminales(id_terminal)
-  )
-ENGINE = INNODB
-CHARACTER SET utf8
-COLLATE utf8_spanish_ci;
 
-CREATE TABLE if NOT EXISTS llegadas(
-  id_terminal int,
-  id_vuelo int,
-  PRIMARY KEY (id_terminal,id_vuelo),
-  FOREIGN KEY (id_terminal)REFERENCES terminales  (id_terminal),
-  FOREIGN KEY (id_vuelo)REFERENCES vuelo (id_vuelo)
-  )
-ENGINE = INNODB
-CHARACTER SET utf8
-COLLATE utf8_spanish_ci;
-
-CREATE TABLE if NOT EXISTS salidas(
-  id_terminal int,
-  id_vuelo int,
-  PRIMARY KEY (id_terminal,id_vuelo),
-  FOREIGN KEY (id_terminal)REFERENCES terminales  (id_terminal),
-  FOREIGN KEY (id_vuelo)REFERENCES vuelo (id_vuelo)
-  )
-ENGINE = INNODB
-CHARACTER SET utf8
-COLLATE utf8_spanish_ci;
-
-
-CREATE TABLE if NOT EXISTS vuelan(
-  id_linea int,
-  id_vuelo int,
-  PRIMARY KEY (id_linea, id_vuelo),
-  FOREIGN KEY (id_linea) REFERENCES aerolineas(id_linea),
-  FOREIGN KEY (id_vuelo) REFERENCES vuelo(id_vuelo)
-  )
-ENGINE = INNODB
-CHARACTER SET utf8
-COLLATE utf8_spanish_ci;
 
 CREATE TABLE if NOT EXISTS compra(
   id_cliente int,
@@ -179,20 +146,28 @@ INSERT INTO servicios VALUES
   (3,'Parking'),
   (4,'Bancario'),
   (5,'Informacion Turistica');
+INSERT INTO terminales VALUES 
+  (1,'T1',1),
+  (2,'T2',1),
+  (3,'T3',1),
+  (4,'T1',2),
+  (5,'T2',2),
+  (6,'T1',3),
+  (7,'T1',4),
+  (8,'T1',5),
+  (9,'T1',6),
+  (10,'T1',7),
+  (11,'T1',8);
+INSERT INTO vuelo VALUES
+  (1,1,2);
 
-INSERT INTO terminales VALUES
-  (1,'T1'),
-  (2,'T2'),
-  (3,'T3'),
-  (4,'T1'),
-  (5,'T2'),
-  (6,'T1'),
-  (7,'T2'),
-  (8,'T1'),
-  (9,'T1'),
-  (10,'T1'),
-  (11,'T2'),
-  (12,'T1'),
-  (13,'T2') ;
+INSERT INTO aerolineas VALUES
+  (1,'Iberia','España',1),
+  (2,'Air France','Francia',2),
+  (3,'British Airways','UK',3),
+  (4,'Lufthansa','Alemania',4),
+  (5,'American Airlines', 'USA',5);
+
+
 
 SELECT *FROM terminales;

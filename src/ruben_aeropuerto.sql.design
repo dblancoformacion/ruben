@@ -12,12 +12,12 @@
     <ConnectionString>User Id=root;Host=127.0.0.1;Character Set=utf8</ConnectionString>
     <Database>ruben_aeropuerto</Database>
   </Connection>
-  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="65">
+  <Views ShowAdditionalViews="False" IsLayoutActiveAttribute="True" MainViewAttribute="Code" MainViewScale="50">
     <View Name="Design" Visible="True">
       <Data>
         <StatementType>Insert</StatementType>
         <ActiveQuery>0</ActiveQuery>
-        <SubQuery Id="0" Open="0" LocationX="-10.3448275295081" LocationY="-10.3448275295081" Scale="0.87">
+        <SubQuery Id="0" Open="0" LocationX="-179.036459754599" LocationY="37.2023812477089" Scale="0.43008">
           <PageOptions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
             <HorizontalOverlap>0</HorizontalOverlap>
             <VerticalOverlap>0</VerticalOverlap>
