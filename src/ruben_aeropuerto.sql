@@ -60,29 +60,32 @@ COLLATE utf8_spanish_ci;
 
 
 
-CREATE TABLE IF NOT EXISTS vuelo (
-  id_vuelo int AUTO_INCREMENT,
-  id_terminal_salida int,
-  id_terminal_llegada int,
-  PRIMARY KEY (id_vuelo),
-  FOREIGN KEY(id_terminal_salida) REFERENCES terminales(id_terminal),
-  FOREIGN KEY(id_terminal_llegada) REFERENCES terminales(id_terminal)
+CREATE TABLE IF NOT EXISTS aerolineas (
+  id_linea int AUTO_INCREMENT,
+  nom_linea varchar (25) NOT NULL,
+  nacionalidad varchar (25)NOT NULL ,
+  PRIMARY KEY (id_linea)
+  
 )
 ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_spanish_ci;
 
-CREATE TABLE IF NOT EXISTS aerolineas (
-  id_linea int AUTO_INCREMENT,
-  nom_linea varchar (25) NOT NULL,
-  nacionalidad varchar (25)NOT NULL ,
-  id_vuelo int,
-  PRIMARY KEY (id_linea),
-  FOREIGN KEY(id_vuelo) REFERENCES vuelo(id_vuelo)
+CREATE TABLE IF NOT EXISTS vuelo (
+  id_vuelo int AUTO_INCREMENT,
+  id_terminal_salida int,
+  id_terminal_llegada int,
+  id_linea int,
+  PRIMARY KEY (id_vuelo),
+  FOREIGN KEY(id_terminal_salida) REFERENCES terminales(id_terminal),
+  FOREIGN KEY(id_terminal_llegada) REFERENCES terminales(id_terminal),
+  FOREIGN KEY(id_linea) REFERENCES aerolineas(id_linea)
 )
 ENGINE = INNODB
 CHARACTER SET utf8
 COLLATE utf8_spanish_ci;
+
+
 
 CREATE TABLE IF NOT EXISTS cliente(
   id_cliente int AUTO_INCREMENT,
@@ -137,8 +140,6 @@ INSERT INTO cliente VALUES
   (3,'Pili'),
   (4,'Pilo');
 
-SELECT *FROM servicios;
-
 
 INSERT INTO servicios VALUES
   (1,'Equipaje'),
@@ -146,6 +147,7 @@ INSERT INTO servicios VALUES
   (3,'Parking'),
   (4,'Bancario'),
   (5,'Informacion Turistica');
+
 INSERT INTO terminales VALUES 
   (1,'T1',1),
   (2,'T2',1),
@@ -158,16 +160,58 @@ INSERT INTO terminales VALUES
   (9,'T1',6),
   (10,'T1',7),
   (11,'T1',8);
-INSERT INTO vuelo VALUES
-  (1,1,2);
-
 INSERT INTO aerolineas VALUES
-  (1,'Iberia','España',1),
-  (2,'Air France','Francia',2),
-  (3,'British Airways','UK',3),
-  (4,'Lufthansa','Alemania',4),
-  (5,'American Airlines', 'USA',5);
+  (1,'Iberia','España'),
+  (2,'Air France','Francia'),
+  (3,'British Airways','UK'),
+  (4,'Lufthansa','Alemania'),
+  (5,'American Airlines', 'USA');
+INSERT INTO vuelo VALUES
+  (1,1,6,1),
+  (2,2,10,2),
+  (3,3,9,1),
+  (4,3,7,5),
+  (5,5,1,4),
+  (6,6,1,1),
+  (7,8,11,3); 
+
+INSERT INTO ofrece VALUES 
+  (1,1),
+  (1,3),
+  (1,5),
+  (2,2),
+  (2,3),
+  (2,5),
+  (3,1),
+  (3,2),
+  (3,4),
+  (4,1),
+  (4,2),
+  (4,4),
+  (5,1),
+  (5,2),
+  (5,4),
+  (5,5),
+  (6,2),
+  (6,4),
+  (7,1),
+  (7,5),
+  (8,2),
+  (8,3),
+  (8,4),
+  (9,1),
+  (9,3),
+  (9,5),
+  (10,3),
+  (10,4);
+
+INSERT INTO compra VALUES 
+  (1,1),
+  (4,1),
+  (4,6),
+  (3,7),
+  (2,5);
 
 
 
-SELECT *FROM terminales;
+SELECT *FROM compra JOIN vuelo WHERE id_terminal_salida=id_terminal_llegada;
