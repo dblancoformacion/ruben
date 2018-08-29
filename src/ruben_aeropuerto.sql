@@ -76,6 +76,8 @@ CREATE TABLE IF NOT EXISTS vuelo (
   id_terminal_salida int,
   id_terminal_llegada int,
   id_linea int,
+  plazas smallint NOT NULL,
+  plazas_restantes smallint,
   PRIMARY KEY (id_vuelo),
   FOREIGN KEY(id_terminal_salida) REFERENCES terminales(id_terminal),
   FOREIGN KEY(id_terminal_llegada) REFERENCES terminales(id_terminal),
@@ -214,4 +216,4 @@ INSERT INTO compra VALUES
 
 
 
-SELECT *FROM compra JOIN vuelo WHERE id_terminal_salida=id_terminal_llegada;
+SELECT *FROM aerolineas;
